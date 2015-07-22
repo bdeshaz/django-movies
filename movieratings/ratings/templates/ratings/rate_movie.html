@@ -1,0 +1,20 @@
+{% extends "ratings/base.html" %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block content %}
+
+
+    <h2>Rate Movie</h2>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ rate_form.as_p }}
+
+        <!-- Provide a button to click to submit the form. -->
+        <input type="submit" name="submit" value="Rate"/>
+    </form>
+{% endblock %}

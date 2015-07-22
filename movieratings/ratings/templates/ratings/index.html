@@ -1,0 +1,36 @@
+{% extends "ratings/base.html" %}
+
+{% block content %}
+
+
+        <div align="center" class="row">
+            <div class="col-md-6">
+                <table class="table table-striped" border="1" bgcolor="#fffacd">
+                    <th>Movie</th>
+                    <th>Rating</th>
+                    {% if request.user.is_authenticated %}
+                        <th>Seen</th>
+                        {% for tup in top_movies %}
+                            <tr>
+                                <td><a href="{% url 'show_movie' tup.0.id %}">{{ tup.0.title }}</a></td>
+                                <td>{{ tup.0.avg_rating|floatformat:"2" }}</td>
+                                    {% if tup.1 %}
+                                        <td>Seen It</td>
+                                    {% else %}
+                                        <td><a href="{% url 'show_movie' tup.0.id %}">Check It Out</a></td>
+                                    {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for mov in top_movies %}
+                            <tr>
+                                <td><a href="{% url 'show_movie' mov.id %}">{{ mov.title }}</a></td>
+                                <td>{{ mov.avg_rating|floatformat:"2" }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+
+        </div>
+
+{% endblock %}
